@@ -8,10 +8,10 @@ import (
 
 type User struct {
 	ID       uint64 `json:"id,omitempty"`
-	Name     string `json:"name" validate:"required"`
-	LastName string `json:"lastname" validate:"required"`
-	Email    string `json:"email" validate:"required,email"`
-	Password string `json:"password" validate:"required"`
+	Name     string `json:"name,omitempty" validate:"required"`
+	LastName string `json:"lastname,omitempty" validate:"required"`
+	Email    string `json:"email,omitempty" validate:"required,email"`
+	Password string `json:"password,omitempty" validate:"required"`
 }
 
 type UserValidator struct {
