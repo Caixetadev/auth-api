@@ -8,8 +8,8 @@ RUN go mod download
 
 COPY . .
 
-RUN go build -o /app/auth-api ./cmd
+RUN go build -o /app/auth-api ./cmd/api/
 
-EXPOSE 5000
+EXPOSE 3333
 
 CMD ["/app/auth-api"]
