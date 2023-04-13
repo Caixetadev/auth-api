@@ -20,6 +20,10 @@ func Register(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 
+	if err := user.Prepare("REGISTER"); err != nil {
+		return echo.NewHTTPError(http.StatusInternalServerError, err)
+	}
+
 	db, err := db.Connect()
 
 	if err != nil {

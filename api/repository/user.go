@@ -14,6 +14,6 @@ func NewRepositoryOfAuth(db *sql.DB) *User {
 }
 
 func (u User) Create(user models.User) error {
-	_, err := u.db.Exec("INSERT INTO users (name, lastname, email, password) VALUES ($1, $2, $3, $4)", user.Name, user.LastNmae, user.Email, user.Password)
+	_, err := u.db.Exec("INSERT INTO users (name, lastname, email, password) VALUES ($1, $2, $3, $4)", user.Name, user.LastName, user.Email, user.Password)
 	return err
 }
