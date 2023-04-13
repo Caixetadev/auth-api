@@ -15,6 +15,7 @@ func main() {
 	e.Validator = &models.UserValidator{Validator: v}
 
 	routes.InitAuthRoutes(e)
+	routes.InitUserRoutes(e)
 
 	e.Logger.Fatal(e.Start(":3333"))
 }
