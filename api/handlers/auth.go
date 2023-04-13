@@ -40,7 +40,11 @@ func Register(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
 
-	return c.JSON(http.StatusCreated, user)
+	response := map[string]string{
+		"message": "Usuário criado com sucesso",
+	}
+
+	return c.JSON(http.StatusCreated, response)
 }
 
 func Login(c echo.Context) error {
@@ -77,7 +81,8 @@ func Login(c echo.Context) error {
 	}
 
 	response := map[string]string{
-		"token": token,
+		"message": "Logado com sucesso",
+		"token":   token,
 	}
 
 	return c.JSON(http.StatusOK, response)
