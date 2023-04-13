@@ -37,3 +37,23 @@ func (u User) GetUserByEmail(email string) (models.User, error) {
 
 	return user, nil
 }
+
+func (u User) GetUserByID(userID uint64) (models.User, error) {
+	line, err := u.db.Query("SELECT name, lastname, email FROM users WHERE id = $1", userID)
+
+	if err != nil {
+		return models.User{}, err
+	}
+
+	defer line.Close()
+
+	var user models.User
+
+	if line.Next() {
+		if err = line.Scan(&user.Name, &user.LastName, &user.Email); err != nil {
+			return models.User{}, err
+		}
+	}
+
+	return user, nil
+}
