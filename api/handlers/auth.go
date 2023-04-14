@@ -14,7 +14,7 @@ import (
 // Register registers a new user
 // @Summary Register a new user
 // @Description Register a new user
-// @Tags users
+// @Tags auth
 // @Accept json
 // @Produce json
 // @Param user body models.User true "User information"
@@ -56,6 +56,16 @@ func Register(c echo.Context) error {
 	return c.JSON(http.StatusCreated, response)
 }
 
+// Login logs in the user
+// @Summary Log in the user
+// @Description Log in the user
+// @Tags auth
+// @Accept json
+// @Produce json
+// @Param user body models.LoginPayload true "User's credentials"
+// @Success 200 {object} map[string]string
+// @Failure 400
+// @Router /login [post]
 func Login(c echo.Context) error {
 	var user models.User
 
