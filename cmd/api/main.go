@@ -12,6 +12,9 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
+// @securityDefinitions.apikey BearerAuth
+// @in header
+// @name Authorization
 func main() {
 	e := echo.New()
 	v := validator.New()
