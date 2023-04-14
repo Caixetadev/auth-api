@@ -11,6 +11,15 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
+// Register registers a new user
+// @Summary Register a new user
+// @Description Register a new user
+// @Tags users
+// @Accept json
+// @Produce json
+// @Param user body models.User true "User information"
+// @Success 201 {object} map[string]string
+// @Router /register [post]
 func Register(c echo.Context) error {
 	var user models.User
 

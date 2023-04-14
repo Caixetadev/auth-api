@@ -7,7 +7,7 @@ import (
 )
 
 type User struct {
-	ID       uint64 `json:"id,omitempty"`
+	ID       uint64 `json:"id,omitempty" swaggerignore:"true"`
 	Name     string `json:"name,omitempty" validate:"required"`
 	LastName string `json:"lastname,omitempty" validate:"required"`
 	Email    string `json:"email,omitempty" validate:"required,email"`
