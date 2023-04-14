@@ -1,4 +1,11 @@
 definitions:
+  models.LoginPayload:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    type: object
   models.User:
     properties:
       email:
@@ -15,9 +22,63 @@ definitions:
     - name
     - password
     type: object
+  models.UserResponse:
+    properties:
+      email:
+        type: string
+      lastname:
+        type: string
+      name:
+        type: string
+    type: object
 info:
   contact: {}
 paths:
+  /login:
+    post:
+      consumes:
+      - application/json
+      description: Log in the user
+      parameters:
+      - description: User's credentials
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/models.LoginPayload'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: Bad Request
+      summary: Log in the user
+      tags:
+      - auth
+  /me:
+    get:
+      consumes:
+      - application/json
+      description: Get current user
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.UserResponse'
+        "404":
+          description: Not Found
+      security:
+      - BearerAuth: []
+      summary: Get current user
+      tags:
+      - users
   /register:
     post:
       consumes:
@@ -41,5 +102,10 @@ paths:
             type: object
       summary: Register a new user
       tags:
-      - users
+      - auth
+securityDefinitions:
+  BearerAuth:
+    in: header
+    name: Authorization
+    type: apiKey
 swagger: "2.0"
