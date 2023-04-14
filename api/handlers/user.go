@@ -13,7 +13,7 @@ import (
 // GetUser returns current user
 // @Summary Get current user
 // @Description Get current user
-// @Tags users
+// @Tags user
 // @Accept json
 // @Produce json
 // @Security BearerAuth

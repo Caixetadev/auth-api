@@ -12,6 +12,9 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
+// @title Auth API
+// @version 1.0
+// @description Authentication API Documentation.
 // @securityDefinitions.apikey BearerAuth
 // @in header
 // @name Authorization

@@ -1,7 +1,10 @@
 {
     "swagger": "2.0",
     "info": {
-        "contact": {}
+        "description": "Authentication API Documentation.",
+        "title": "Auth API",
+        "contact": {},
+        "version": "1.0"
     },
     "paths": {
         "/login": {
@@ -59,7 +62,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "users"
+                    "user"
                 ],
                 "summary": "Get current user",
                 "responses": {

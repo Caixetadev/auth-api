@@ -33,6 +33,9 @@ definitions:
     type: object
 info:
   contact: {}
+  description: Authentication API Documentation.
+  title: Auth API
+  version: "1.0"
 paths:
   /login:
     post:
@@ -78,7 +81,7 @@ paths:
       - BearerAuth: []
       summary: Get current user
       tags:
-      - users
+      - user
   /register:
     post:
       consumes:
