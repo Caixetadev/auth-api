@@ -4,6 +4,10 @@ import (
 	"auth-api/api/models"
 	"auth-api/api/routes"
 
+	echoSwagger "github.com/swaggo/echo-swagger"
+
+	_ "auth-api/docs"
+
 	"github.com/go-playground/validator"
 	"github.com/labstack/echo/v4"
 )
@@ -16,6 +20,7 @@ func main() {
 
 	routes.InitAuthRoutes(e)
 	routes.InitUserRoutes(e)
+	e.GET("/swagger/*", echoSwagger.WrapHandler)
 
 	e.Logger.Fatal(e.Start(":3333"))
 }

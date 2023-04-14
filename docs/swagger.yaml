@@ -1,0 +1,45 @@
+definitions:
+  models.User:
+    properties:
+      email:
+        type: string
+      lastname:
+        type: string
+      name:
+        type: string
+      password:
+        type: string
+    required:
+    - email
+    - lastname
+    - name
+    - password
+    type: object
+info:
+  contact: {}
+paths:
+  /register:
+    post:
+      consumes:
+      - application/json
+      description: Register a new user
+      parameters:
+      - description: User information
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/models.User'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Register a new user
+      tags:
+      - users
+swagger: "2.0"
