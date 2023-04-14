@@ -8,5 +8,5 @@ import (
 
 func InitAuthRoutes(e *echo.Echo) {
 	e.POST("/register", handlers.Register)
-	e.POST("login", handlers.Login)
+	e.POST("/login", handlers.Login)
 }
