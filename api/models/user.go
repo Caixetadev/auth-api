@@ -14,6 +14,17 @@ type User struct {
 	Password string `json:"password,omitempty" validate:"required"`
 }
 
+type UserResponse struct {
+	Email    string `json:"email"`
+	LastName string `json:"lastname"`
+	Name     string `json:"name"`
+}
+
+type LoginPayload struct {
+	Email    string `json:"email"`
+	Password string `json:"password"`
+}
+
 type UserValidator struct {
 	Validator *validator.Validate
 }
