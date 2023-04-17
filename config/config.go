@@ -1,26 +1,37 @@
 package config
 
-import "github.com/spf13/viper"
+import (
+	"log"
 
-type Config struct {
-	DB_SOURCE string `mapstructure:"DB_SOURCE"`
-	API_PORT  string `mapstructure:"API_PORT"`
+	"github.com/spf13/viper"
+)
+
+var EnvConfigs *envConfigs
+
+func InitEnvConfigs() {
+	EnvConfigs = loadEnvVariables()
 }
 
-// LoadConfig is a func that returns the configuration fetched from the configuration file
-func LoadConfig(path string) (config Config, err error) {
-	viper.AddConfigPath(path)
+type envConfigs struct {
+	PostgresDB       string `mapstructure:"POSTGRES_DB"`
+	PostgresUser     string `mapstructure:"POSTGRES_USER"`
+	PostgresPassword string `mapstructure:"POSTGRES_PASSWORD"`
+	SecretToken      string `mapstructure:"SECRET_TOKEN"`
+}
+
+func loadEnvVariables() (config *envConfigs) {
+	viper.AddConfigPath(".")
+
 	viper.SetConfigName("app")
+
 	viper.SetConfigType("env")
 
-	viper.AutomaticEnv()
-
-	err = viper.ReadInConfig()
-
-	if err != nil {
-		return
+	if err := viper.ReadInConfig(); err != nil {
+		log.Fatal("Error reading env file", err)
 	}
 
-	err = viper.Unmarshal(&config)
+	if err := viper.Unmarshal(&config); err != nil {
+		log.Fatal(err)
+	}
 	return
 }

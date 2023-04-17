@@ -3,6 +3,7 @@ package main
 import (
 	"auth-api/api/models"
 	"auth-api/api/routes"
+	"auth-api/config"
 
 	echoSwagger "github.com/swaggo/echo-swagger"
 
@@ -21,6 +22,8 @@ import (
 func main() {
 	e := echo.New()
 	v := validator.New()
+
+	config.InitEnvConfigs()
 
 	e.Validator = &models.UserValidator{Validator: v}
 

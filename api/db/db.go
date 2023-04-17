@@ -1,20 +1,16 @@
 package db
 
 import (
+	"auth-api/config"
 	"database/sql"
+	"fmt"
 
 	_ "github.com/lib/pq"
 )
 
 // Connect opens the database connection and returns it
 func Connect() (*sql.DB, error) {
-	// config, err := config.LoadConfig(".")
-
-	// if err != nil {
-	// 	log.Fatal("cannot load config:", err)
-	// }
-
-	db, err := sql.Open("postgres", "postgres://postgres:mysecretpassword@db/auth-api?sslmode=disable")
+	db, err := sql.Open("postgres", fmt.Sprintf("postgres://%s:%s@db/%s?sslmode=disable", config.EnvConfigs.PostgresUser, config.EnvConfigs.PostgresPassword, config.EnvConfigs.PostgresDB))
 
 	if err != nil {
 		return nil, err

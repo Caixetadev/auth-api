@@ -1,6 +1,7 @@
 package auth
 
 import (
+	"auth-api/config"
 	"errors"
 	"fmt"
 	"strconv"
@@ -20,7 +21,7 @@ func CreateToken(userID uint64) (string, error) {
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, perm)
 
-	return token.SignedString([]byte("minhatestesupersecreta"))
+	return token.SignedString([]byte(config.EnvConfigs.SecretToken))
 }
 
 // GetUserID return the userId that is saved in token
@@ -61,5 +62,5 @@ func returnVerificationKey(token *jwt.Token) (interface{}, error) {
 		return nil, fmt.Errorf("Unexpected signature method! %s", token.Header["alg"])
 	}
 
-	return []byte("minhatestesupersecreta"), nil
+	return []byte(config.EnvConfigs.SecretToken), nil
 }
