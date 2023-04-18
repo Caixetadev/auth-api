@@ -20,15 +20,13 @@ git clone https://github.com/Caixetadev/auth-api.git
 go get -d ./...
 ```
 
-4. Crie o arquivo .env na raiz do projeto, e defina as seguintes variáveis de ambiente:
+4. Crie o arquivo app.env na raiz do projeto, e defina as seguintes variáveis de ambiente:
 
 ```
-JWT_SECRET=seu_secreto_aqui
-DB_USER=seu_usuario_do_banco_de_dados
-DB_PASSWORD=sua_senha_do_banco_de_dados
-DB_NAME=seu_nome_do_banco_de_dados
-DB_HOST=seu_host_do_banco_de_dados
-DB_PORT=sua_porta_do_banco_de_dados
+POSTGRES_USER=seu_usuario_do_banco_de_dados
+POSTGRES_DB=auth-api
+POSTGRES_PASSWORD=sua_senha_do_banco_de_dados
+SECRET_TOKEN=seu_secreto_aqui
 ```
 
 5. Para executar a aplicação localmente, execute o seguinte comando no diretório raiz do projeto:
