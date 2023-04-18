@@ -46,3 +46,8 @@ docker-compose up
 O servidor será iniciado dentro de um container Docker, e poderá ser acessado através do endereço http://localhost:3333.
 
 Agora que a aplicação está rodando, você pode fazer requisições para a API utilizando ferramentas como o Postman ou o cURL. A documentação da API está disponível em http://localhost:3333/swagger/index.html.
+
+
+![swagger](https://user-images.githubusercontent.com/87894998/232907580-b7b83383-61d8-43df-ad44-877ad1e8a43b.png)
+
+
