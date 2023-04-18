@@ -3,10 +3,12 @@
 API de autenticação com JWT Token desenvolvida em Golang utilizando o framework Echo. Com a utilização dessa API, é possível garantir a segurança e eficiência no processo de autenticação de usuários, permitindo que apenas usuários autenticados tenham acesso aos recursos protegidos.
 
 ## Instalação
+[Manual](#codigo-fonte)<br/>
+[Docker Compose](#docker-compose)
 
 Para executar o projeto, siga os passos abaixo:
 
-1. Certifique-se de ter o Golang instalado em sua máquina. Caso não tenha, acesse o site oficial do Golang e siga as instruções de instalação.
+1. <p id="codigo-fonte">Certifique-se de ter o Golang instalado em sua máquina. Caso não tenha, acesse o site oficial do Golang e siga as instruções de instalação.</p>
 
 2. Clone o repositório do projeto em seu ambiente de desenvolvimento utilizando o comando abaixo:
 
@@ -36,7 +38,7 @@ go run cmd/api/main.go
 ```
 O servidor será iniciado, e poderá ser acessado através do endereço http://localhost:3333.
 
-6. Para executar a aplicação utilizando Docker Compose, certifique-se de ter o Docker e o Docker Compose instalados em sua máquina. Em seguida, execute o seguinte comando no diretório raiz do projeto:
+6. <p id="docker-compose">Para executar a aplicação utilizando Docker Compose, certifique-se de ter o Docker e o Docker Compose instalados em sua máquina. Em seguida, execute o seguinte comando no diretório raiz do projeto:</p>
 
 ```
 docker-compose up
