@@ -6,6 +6,6 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-func InitUserRoutes(e *echo.Echo) {
-	e.GET("/me", handlers.GetUser)
+func InitUserRoutes(e *echo.Echo, h *handlers.UserHanlder) {
+	e.GET("/me", h.GetUser)
 }

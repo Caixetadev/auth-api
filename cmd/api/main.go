@@ -1,9 +1,12 @@
 package main
 
 import (
+	"auth-api/api/db"
+	"auth-api/api/handlers"
 	"auth-api/api/models"
 	"auth-api/api/routes"
 	"auth-api/config"
+	"database/sql"
 
 	echoSwagger "github.com/swaggo/echo-swagger"
 
@@ -27,9 +30,27 @@ func main() {
 
 	e.Validator = &models.UserValidator{Validator: v}
 
-	routes.InitAuthRoutes(e)
-	routes.InitUserRoutes(e)
+	db := db.Connect()
+
+	defer db.Close()
+
+	Setup(db, e)
+
 	e.GET("/swagger/*", echoSwagger.WrapHandler)
 
 	e.Logger.Fatal(e.Start(":3333"))
+}
+
+func Setup(db *sql.DB, e *echo.Echo) {
+	handlerAuth, handlerUser := InitHandlers(db)
+
+	routes.InitAuthRoutes(e, handlerAuth)
+	routes.InitUserRoutes(e, handlerUser)
+}
+
+func InitHandlers(db *sql.DB) (*handlers.AuthHanlder, *handlers.UserHanlder) {
+	handlerAuth := handlers.NewAuthHandler(db)
+	hanlderUser := handlers.NewUserHanlder(db)
+
+	return handlerAuth, hanlderUser
 }

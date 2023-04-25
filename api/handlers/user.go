@@ -2,13 +2,21 @@ package handlers
 
 import (
 	"auth-api/api/auth"
-	"auth-api/api/db"
 	"auth-api/api/models"
 	"auth-api/api/repository"
+	"database/sql"
 	"net/http"
 
 	"github.com/labstack/echo/v4"
 )
+
+type UserHanlder struct {
+	db *sql.DB
+}
+
+func NewUserHanlder(db *sql.DB) *UserHanlder {
+	return &UserHanlder{db: db}
+}
 
 // GetUser returns current user
 // @Summary Get current user
@@ -20,22 +28,14 @@ import (
 // @Success 200 {object} models.UserResponse
 // @Failure 404
 // @Router /me [get]
-func GetUser(c echo.Context) error {
+func (h *UserHanlder) GetUser(c echo.Context) error {
 	userID, err := auth.GetUserByID(c)
 
 	if err != nil {
 		return echo.NewHTTPError(http.StatusNotFound, err.Error())
 	}
 
-	db, err := db.Connect()
-
-	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
-	}
-
-	defer db.Close()
-
-	repository := repository.NewRepositoryOfAuth(db)
+	repository := repository.NewRepositoryOfAuth(h.db)
 
 	user, err := repository.GetUserByID(userID)
 

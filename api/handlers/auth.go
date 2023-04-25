@@ -2,14 +2,22 @@ package handlers
 
 import (
 	"auth-api/api/auth"
-	"auth-api/api/db"
 	"auth-api/api/models"
 	"auth-api/api/repository"
 	"auth-api/api/security"
+	"database/sql"
 	"net/http"
 
 	"github.com/labstack/echo/v4"
 )
+
+type AuthHanlder struct {
+	db *sql.DB
+}
+
+func NewAuthHandler(db *sql.DB) *AuthHanlder {
+	return &AuthHanlder{db: db}
+}
 
 // Register registers a new user
 // @Summary Register a new user
@@ -20,7 +28,7 @@ import (
 // @Param user body models.User true "User information"
 // @Success 201 {object} map[string]string
 // @Router /register [post]
-func Register(c echo.Context) error {
+func (h *AuthHanlder) Register(c echo.Context) error {
 	var user models.User
 
 	if err := c.Bind(&user); err != nil {
@@ -35,17 +43,9 @@ func Register(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusInternalServerError, err)
 	}
 
-	db, err := db.Connect()
+	repository := repository.NewRepositoryOfAuth(h.db)
 
-	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
-	}
-
-	defer db.Close()
-
-	repository := repository.NewRepositoryOfAuth(db)
-
-	if err = repository.Create(user); err != nil {
+	if err := repository.Create(user); err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
 
@@ -66,22 +66,14 @@ func Register(c echo.Context) error {
 // @Success 200 {object} map[string]string
 // @Failure 400
 // @Router /login [post]
-func Login(c echo.Context) error {
+func (h *AuthHanlder) Login(c echo.Context) error {
 	var user models.User
 
 	if err := c.Bind(&user); err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 
-	db, err := db.Connect()
-
-	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
-	}
-
-	defer db.Close()
-
-	repository := repository.NewRepositoryOfAuth(db)
+	repository := repository.NewRepositoryOfAuth(h.db)
 
 	userSavedInBank, err := repository.GetUserByEmail(user.Email)
 

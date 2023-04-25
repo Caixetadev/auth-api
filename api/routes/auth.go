@@ -6,7 +6,7 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-func InitAuthRoutes(e *echo.Echo) {
-	e.POST("/register", handlers.Register)
-	e.POST("/login", handlers.Login)
+func InitAuthRoutes(e *echo.Echo, h *handlers.AuthHanlder) {
+	e.POST("/register", h.Register)
+	e.POST("/login", h.Login)
 }
