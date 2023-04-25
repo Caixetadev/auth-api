@@ -11,6 +11,13 @@ services:
     ports:
       - 5432:5432
 
+  migrate:
+    image: migrate/migrate
+    volumes:
+        - ./api/db/migrations:/migrations
+    command: ["-path", "/migrations", "-database",  "postgres://caixeta:senhaqueninguemnuncavaipensarKEKW@db:5432/auth-api?sslmode=disable", "up"]
+    depends_on: 
+        - db
   app:
     build: .
     ports:
